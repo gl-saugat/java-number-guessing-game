@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/java-number-guessing-game.iml" filepath="$PROJECT_DIR$/.idea/java-number-guessing-game.iml" />
+      <module fileurl="file://$PROJECT_DIR$/number-guesser/number-guesser.iml" filepath="$PROJECT_DIR$/number-guesser/number-guesser.iml" />
+    </modules>
+  </component>
+</project>
