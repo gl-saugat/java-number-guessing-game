@@ -7,6 +7,7 @@ public class UserInterface {
     Scanner scan;
     Logic logic;
     int difficulty = 0;
+    int numBound = 0;
 
 
     public UserInterface(Scanner scan) {
@@ -18,7 +19,12 @@ public class UserInterface {
         String newGame = "";
         do {
             printDifficulty();
-            difficulty = getInput();
+
+            if(getInput() == 4){
+                break;
+            }else{
+                difficulty = getInput();
+            }
             logic.difficulty(difficulty);
             System.out.println("You've chosen Difficulty: " + difficulty);
             String playon = "";
@@ -37,27 +43,14 @@ public class UserInterface {
         System.out.println("Enter Difficulty:");
         System.out.println("1: Easy (1-50)");
         System.out.println("2: Moderate (1 -100)");
-        System.out.println("3: Hard (1 -200");
+        System.out.println("3: Hard (1 -200)");
+        System.out.println("4: Exit");
     }
 
     public int getInput() {
         int input = 0;
-        int bound = 0;
+        int bound = getBound();
 
-        switch (difficulty) {
-            case 0:
-                bound = 4;
-                break;
-            case 1:
-                bound = 50;
-                break;
-            case 2:
-                bound = 100;
-                break;
-            case 3:
-                bound = 200;
-                break;
-        }
         boolean run = true;
         while (run) {
             try {
@@ -81,6 +74,7 @@ public class UserInterface {
         int chances = 8;
         do {
             System.out.println("Take a guess. You have " + chances + " tries.");
+            System.out.println("Choose number between 1 and "+ getBound());
             int input = getInput();
             if (logic.takeGuess(input)) {
                 System.out.println("Right Guess.");
@@ -96,10 +90,21 @@ public class UserInterface {
         int toGuess = logic.getToGuess();
         int closeness = guess - toGuess;
         if (Math.abs(closeness) <= 5) {
-            System.out.println("You are less than or about 5 steps away.");
+            System.out.println("***You are less than or about 5 steps away.***");
         } else {
-            System.out.println((closeness < 0) ? "Try a bit higher" : "Try a bit lower.");
+            System.out.printf((closeness < 0) ? "Try a bit higher. " : "Try a bit lower. ");
         }
+    }
+
+    public int getBound(){
+        int bound = switch (difficulty){
+            case 0 -> 5;
+            case 1 -> 50;
+            case 2 -> 100;
+            case 3 -> 200;
+            default -> 0;
+        };
+        return bound;
     }
 
 }
