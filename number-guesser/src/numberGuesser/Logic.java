@@ -22,7 +22,6 @@ public class Logic {
         switch (difficulty){
             case 1 :
                 toGuess = rand.nextInt(50);
-                System.out.println(toGuess);
                 break;
             case 2:
                 toGuess = rand.nextInt(100);
@@ -36,6 +35,10 @@ public class Logic {
 
     public boolean takeGuess(int guess){
         return guess == toGuess;
+    }
+
+    public int getToGuess(){
+        return toGuess;
     }
 
 

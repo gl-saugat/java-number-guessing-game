@@ -6,6 +6,7 @@ public class UserInterface {
 
     Scanner scan;
     Logic logic;
+    int difficulty = 0;
 
 
 
@@ -18,7 +19,7 @@ public class UserInterface {
         String newGame = "";
         do{
             printDifficulty();
-            int difficulty = getDifficulty();
+            difficulty = getDifficulty();
             logic.difficulty(difficulty);
             System.out.println("You've chosen Difficulty: "+ difficulty);
             String playon = "";
@@ -41,7 +42,6 @@ public class UserInterface {
     }
 
     public int getDifficulty(){
-        int difficulty = 0;
         boolean run = true;
         while(run){
             try{
@@ -62,19 +62,7 @@ public class UserInterface {
         return difficulty;
     }
 
-    public void guesses(){
-        int chances = 3;
-        do{
-            System.out.println("Now take a guess. You have " + chances +" tries.");
-            int input = takeInput();
-            if(logic.takeGuess(input)){
-                System.out.println("Right Guess.");
-                break;
-            }
-            chances--;
-        }while(chances != 0);
 
-    }
 
     public int takeInput(){
         int input = 0;
@@ -88,6 +76,31 @@ public class UserInterface {
             }
         }
         return input;
+    }
+
+    public void guesses(){
+        int chances = 8;
+        do{
+            System.out.println("Take a guess. You have " + chances +" tries.");
+            int input = takeInput();
+            if(logic.takeGuess(input)){
+                System.out.println("Right Guess.");
+                break;
+            }
+            closeness(input);
+            chances--;
+        }while(chances != 0);
+
+    }
+
+    public void closeness(int guess){
+         int toGuess = logic.getToGuess();
+         int closeness = guess - toGuess;
+         if(Math.abs(closeness) <= 5){
+             System.out.println("You are less than or about 5 steps away.");
+         }else{
+             System.out.println((closeness < 0) ? "Try a bit higher" : "Try a bit lower.");
+        }
     }
 
 }
