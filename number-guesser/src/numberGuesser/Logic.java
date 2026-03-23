@@ -14,6 +14,11 @@ public class Logic {
     }
 
     public void difficulty(int difficulty){
+
+        if(difficulty<0 || difficulty > 3){
+            throw new ArithmeticException("Choose the difficulty properly.");
+        }
+
         switch (difficulty){
             case 1 :
                 toGuess = rand.nextInt(50);
