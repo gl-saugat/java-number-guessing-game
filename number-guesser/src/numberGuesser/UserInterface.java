@@ -19,11 +19,11 @@ public class UserInterface {
         String newGame = "";
         do {
             printDifficulty();
-
-            if(getInput() == 4){
+            int input = getInput();
+            if(input == 4){
                 break;
             }else{
-                difficulty = getInput();
+                difficulty = input;
             }
             logic.difficulty(difficulty);
             System.out.println("You've chosen Difficulty: " + difficulty);
