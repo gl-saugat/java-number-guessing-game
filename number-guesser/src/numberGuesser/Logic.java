@@ -13,16 +13,23 @@ public class Logic {
         history = new ArrayList<>();
     }
 
-    public void difficulty(Difficulty difficulty){
+    public void getNumber(Difficulty difficulty){
+        history.clear();
         toGuess = rand.nextInt(difficulty.maxRange)+1;
+
     }
 
     public boolean takeGuess(int guess){
+        history.add(guess);
         return guess == toGuess;
     }
 
     public int getToGuess(){
         return toGuess;
+    }
+
+    public ArrayList<Integer> getHistory(){
+        return history;
     }
 
 

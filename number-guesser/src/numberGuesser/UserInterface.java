@@ -17,7 +17,12 @@ public class UserInterface {
 
     public void startGame() {
         String newGame = "";
+        boolean won = true;
         do {
+            if(!(won)){
+                System.out.println("***Maybe you'll get it this time.***");
+            }
+
             printDifficulty();
             int input = getWhichDifficulty();
             if(input == 4){
@@ -27,15 +32,11 @@ public class UserInterface {
             }
 
             System.out.println("You've chosen Difficulty: " + difficulty.name());
-            logic.difficulty(difficulty);
-            String playon = "";
-            do {
-                guesses();
-                System.out.println("Want to play on, new Game or quit?, Y/G/N?");
-                playon = scan.nextLine();
-            } while (playon.equals("Y"));
-            newGame = playon;
-        } while (newGame.equals("G"));
+            logic.getNumber(difficulty);
+            won =guesses();
+            System.out.println("Want to play on or quit?, Y/N?");
+            newGame = scan.nextLine();
+        } while (newGame.equals("Y"));
         System.out.println("Game Over!!");
 
     }
@@ -50,12 +51,12 @@ public class UserInterface {
 
     public int getInput() {
         int input = 0;
-        int bound = difficulty.maxRange + 1;
+        int bound = difficulty.maxRange;
 
         while (true) {
             try {
                 input = Integer.parseInt(scan.nextLine());
-                if (input > 0 && input < bound) {
+                if (input > 0 && input <= bound) {
                     return input;
                 }
                 System.out.println("Please enter a valid selection!");
@@ -82,20 +83,30 @@ public class UserInterface {
 
     }
 
-    public void guesses() {
+    public boolean guesses() {
         int chances = difficulty.maxChances;
         do {
             System.out.println("Take a guess. You have " + chances + " tries.");
             System.out.println("Choose number between 1 and "+ difficulty.maxRange);
+
             int input = getInput();
+
             if (logic.takeGuess(input)) {
                 System.out.println("Right Guess.");
-                break;
+                System.out.println("Your Guesses: " + logic.getHistory());
+                System.out.println(
+                        "You won in " + logic.getHistory().size() + " attempts!"
+                );
+                return true;
             }
+
             closeness(input);
+            System.out.println("Your Guesses: " + logic.getHistory());
+
             chances--;
         } while (chances != 0);
-
+        System.out.println("Out of guesses! Number was: " + logic.getToGuess());
+        return false;
     }
 
     public void closeness(int guess) {
