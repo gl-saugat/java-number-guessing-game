@@ -50,46 +50,36 @@ public class UserInterface {
 
     public int getInput() {
         int input = 0;
-        int bound = difficulty.maxRange;
+        int bound = difficulty.maxRange + 1;
 
-        boolean run = true;
-        while (run) {
+        while (true) {
             try {
-                while (!(input > 0 && input < bound)) {
-                    input = Integer.parseInt(scan.nextLine());
-                    if (!(input > 0 && input < bound)) {
-                        System.out.println("Please enter a valid selection!");
-                        continue;
-                    }
-                    run = false;
+                input = Integer.parseInt(scan.nextLine());
+                if (input > 0 && input < bound) {
+                    return input;
                 }
-
+                System.out.println("Please enter a valid selection!");
             } catch (Exception e) {
                 System.out.println("Enter a valid number.");
             }
         }
-        return input;
+
     }
 
-    public int getWhichDifficulty(){
+    public int getWhichDifficulty() {
         int input = 0;
-        boolean run = true;
-        while (run) {
+        while (true) {
             try {
-                while (!(input > 0 && input < 5)) {
-                    input = Integer.parseInt(scan.nextLine());
-                    if (!(input > 0 && input < 5)) {
-                        System.out.println("Please enter a valid selection!");
-                        continue;
-                    }
-                    run = false;
+                input = Integer.parseInt(scan.nextLine());
+                if (input > 0 && input < 5) {
+                    return input;
                 }
-
+                System.out.println("Please enter a valid selection!");
             } catch (Exception e) {
                 System.out.println("Enter a valid number.");
             }
         }
-        return input;
+
     }
 
     public void guesses() {
