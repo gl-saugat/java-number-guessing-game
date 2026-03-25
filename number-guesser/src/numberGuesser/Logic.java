@@ -13,24 +13,8 @@ public class Logic {
         history = new ArrayList<>();
     }
 
-    public void difficulty(int difficulty){
-
-        if(difficulty<0 || difficulty > 3){
-            throw new ArithmeticException("Choose the difficulty properly.");
-        }
-
-        switch (difficulty){
-            case 1 :
-                toGuess = rand.nextInt(50);
-                break;
-            case 2:
-                toGuess = rand.nextInt(100);
-                break;
-            case 3:
-                toGuess = rand.nextInt(200);
-                break;
-        }
-
+    public void difficulty(Difficulty difficulty){
+        toGuess = rand.nextInt(difficulty.maxRange)+1;
     }
 
     public boolean takeGuess(int guess){

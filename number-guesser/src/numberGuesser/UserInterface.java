@@ -19,14 +19,15 @@ public class UserInterface {
         String newGame = "";
         do {
             printDifficulty();
-
-            if(getInput() == 4){
+            int input = getWhichDifficulty();
+            if(input == 4){
                 break;
             }else{
-                difficulty = getInput();
+                getDifficulty(input);
             }
+
+            System.out.println("You've chosen Difficulty: " + difficulty.name());
             logic.difficulty(difficulty);
-            System.out.println("You've chosen Difficulty: " + difficulty);
             String playon = "";
             do {
                 guesses();
@@ -49,7 +50,7 @@ public class UserInterface {
 
     public int getInput() {
         int input = 0;
-        int bound = getBound();
+        int bound = difficulty.maxRange;
 
         boolean run = true;
         while (run) {
@@ -70,11 +71,32 @@ public class UserInterface {
         return input;
     }
 
+    public int getWhichDifficulty(){
+        int input = 0;
+        boolean run = true;
+        while (run) {
+            try {
+                while (!(input > 0 && input < 5)) {
+                    input = Integer.parseInt(scan.nextLine());
+                    if (!(input > 0 && input < 5)) {
+                        System.out.println("Please enter a valid selection!");
+                        continue;
+                    }
+                    run = false;
+                }
+
+            } catch (Exception e) {
+                System.out.println("Enter a valid number.");
+            }
+        }
+        return input;
+    }
+
     public void guesses() {
-        int chances = 8;
+        int chances = difficulty.maxChances;
         do {
             System.out.println("Take a guess. You have " + chances + " tries.");
-            System.out.println("Choose number between 1 and "+ getBound());
+            System.out.println("Choose number between 1 and "+ difficulty.maxRange);
             int input = getInput();
             if (logic.takeGuess(input)) {
                 System.out.println("Right Guess.");
