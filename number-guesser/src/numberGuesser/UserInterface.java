@@ -6,8 +6,8 @@ public class UserInterface {
 
     Scanner scan;
     Logic logic;
-    int difficulty = 0;
-    int numBound = 0;
+    Difficulty difficulty;
+
 
 
     public UserInterface(Scanner scan) {
@@ -96,15 +96,14 @@ public class UserInterface {
         }
     }
 
-    public int getBound(){
-        int bound = switch (difficulty){
-            case 0 -> 5;
-            case 1 -> 50;
-            case 2 -> 100;
-            case 3 -> 200;
-            default -> 0;
+    public void getDifficulty(int input){
+        switch (input){
+            case 1 -> difficulty = Difficulty.Easy;
+            case 2 -> difficulty = Difficulty.Medium;
+            case 3 -> difficulty = Difficulty.Hard;
+            default -> throw new ArithmeticException("Enter a valid number.");
         };
-        return bound;
+
     }
 
 }

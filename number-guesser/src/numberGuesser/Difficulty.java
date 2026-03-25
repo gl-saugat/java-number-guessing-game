@@ -1,11 +1,11 @@
 package numberGuesser;
 
-public class Difficulty {
-    Difficulty.Easy(50, 10),
-    Difficulty.Medium(100, 7),
-    Difficulty.Hard(200, 5);
-    int maxRange;
-    int maxChances;
+public enum Difficulty {
+    Easy(50, 10),
+    Medium(100, 7),
+    Hard(200, 5);
+    public final int maxRange;
+    public final int maxChances;
 
     Difficulty(int maxRange, int maxChances){
         this.maxRange = maxRange;
